@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: calculator
+  name: calculator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calculator
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: calculator
+    spec:
+      containers:
+        - image: raimundogomes18/example_calculator:1.0.1
+          name: calculator
+          ports:
+            - containerPort: 3000
+

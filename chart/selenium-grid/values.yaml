@@ -266,14 +266,20 @@ chromeNode:
       memory: "1Gi"
       cpu: "1"
     limits:
-      memory: "1Gi"
-      cpu: "1"
+      memory: "2Gi"
+      cpu: "2"
   # Tolerations for chrome-node container
   tolerations: []
   # Node selector for chrome-node container
   nodeSelector: {}
   # Custom environment variables for chrome nodes
   extraEnvironmentVariables:
+    - name: SE_NODE_MAX_SESSIONS
+      value: "16"
+    - name: SE_NODE_OVERRIDE_MAX_SESSIONS
+      value: "true"
+    - name: SE_NODE_SESSION_TIMEOUT
+      value: "150"      
     # - name: JAVA_OPTS
     #   value: "-Xmx512m"
     # - name:
@@ -335,6 +341,12 @@ firefoxNode:
       cpu: "1"
   # Custom environment variables for firefox nodes
   extraEnvironmentVariables:
+    - name: SE_NODE_MAX_SESSIONS
+      value: "2"
+    - name: SE_NODE_OVERRIDE_MAX_SESSIONS
+      value: "true"
+    - name: SE_NODE_SESSION_TIMEOUT
+      value: "150"      
     # - name: JAVA_OPTS
     #   value: "-Xmx512m"
     # - name:
@@ -395,6 +407,12 @@ edgeNode:
       cpu: "1"
   # Custom environment variables for edge nodes
   extraEnvironmentVariables:
+    - name: SE_NODE_MAX_SESSIONS
+      value: "2"
+    - name: SE_NODE_OVERRIDE_MAX_SESSIONS
+      value: "true"
+    - name: SE_NODE_SESSION_TIMEOUT
+      value: "150"      
     # - name: JAVA_OPTS
     #   value: "-Xmx512m"
     # - name:
@@ -419,6 +437,7 @@ edgeNode:
       hello: world
   # Size limit for DSH volume mounted in container (if not set, default is "1Gi")
   dshmVolumeSizeLimit: 1Gi
+
 
 # Custom labels for k8s resources
 customLabels: {}

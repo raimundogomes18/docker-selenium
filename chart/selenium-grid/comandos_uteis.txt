@@ -1,0 +1,31 @@
+
+
+helm install selenium-grid docker-selenium/chart/selenium-grid/.
+
+helm install selenium-grid selenium-grid/.
+
+helm upgrade selenium-grid selenium-grid/.
+#comando para executar a partir da pastas selenium=grid
+helm upgrade selenium-grid .
+helm uninstall selenium-grid
+
+helm install selenium-grid --set isolateComponents=true .
+
+
+kubectl get -n default -o jsonpath="{.spec.ports[0].nodePort}" svc calculator
+
+kubectl get nodes -n default -o jsonpath="{.items[0].status.addresses[0].address}"
+
+export NODE_PORT=$(kubectl get -n default -o jsonpath="{.spec.ports[0].nodePort}" svc selenium-router)
+export NODE_IP=$(kubectl get nodes -n default -o jsonpath="{.items[0].status.addresses[0].address}")
+echo http://$NODE_IP:$NODE_PORT
+export REMOTE_URL=http://$NODE_IP:$NODE_PORT
+
+
+CalculatorEmulationMobileTest
+mvn test -f selenium-agregator/pom.xml -Dtest=CalculatorBaseTest -DfailIfNoTests=false
+mvn test -f selenium-agregator/pom.xml -Dtest=CrossBrowserTest -DfailIfNoTests=false
+mvn test  -f selenium-agregator/pom.xml -pl calculator-test
+
+
+mvn test -f selenium-agregator/pom.xml -Dtest=CalculatorEmulationMobileTest -DfailIfNoTests=false
